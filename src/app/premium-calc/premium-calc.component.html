@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card m-3">
+                <h3 class="card-header">Insurance - Monthly Premium Calculation</h3>
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-width">
+                        <div>
+                            <label class="form-label">Name</label>
+                            <input type="text" formControlName="name" class="form-control" />
+
+                            <div *ngIf="submitted && f['name'].errors" class="text-danger">
+                                <div *ngIf="f['name'].errors['required']">Name is required</div>
+                            </div>
+                            <div *ngIf="submitted && f['name'].errors && f['name'].errors['pattern']"
+                                class="text-danger">
+                                Only Alphabets are allowed
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" formControlName="dob" max="{{maxDate}}"
+                                (change)="changeDate($event)" />
+                            <div *ngIf="submitted && f['dob'].errors" class="text-danger">
+                                <div *ngIf="f['dob'].errors['required']">Date of Birth is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Age</label>
+                            <input type="number" [value]="showAge" formControlName="age" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Occupation</label>
+                            <select class="form-control" (change)="changeOccupation($event)"
+                                formControlName="occupation">
+                                <option *ngFor="let occupation of occupationWithRating" [value]="occupation.factor">
+                                    {{occupation.occupation}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f['occupation'].errors" class="text-danger">
+                                <div *ngIf="f['occupation'].errors['required']">Occupation is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Death - Sum Insured</label>
+                            <input type="text" class="form-control" formControlName="sum" />
+                            <div *ngIf="submitted && f['sum'].errors" class="text-danger">
+                                <div *ngIf="f['sum'].errors['required']">Death - Sum Insured is required</div>
+                            </div>
+                            <div *ngIf="submitted && f['sum'].errors && f['sum'].errors['pattern']" class="text-danger">
+                                Only Numbers are allowed
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                            <button type="button" (click)="onReset()" class="btn btn-warning float-right">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                    <div>
+                        <h4 class="green-color">
+                            Monthly Premium Amount : {{monthlyPremium}}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
