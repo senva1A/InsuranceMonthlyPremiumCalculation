@@ -19,7 +19,7 @@ export class PremiumCalcComponent implements OnInit {
   occupationRating: any;
   monthlyPremium: any;
   numberRegEx = /^[0-9]+(\.?[0-9]+)?$/;
-  stringRegex = /^[a-zA-Z]+$/;
+  stringRegex = /^[a-zA-Z\s]*$/;
 
   constructor(private formBuilder: FormBuilder, private dataService: DataService,
     private currencyPipe: CurrencyPipe) { }
